@@ -374,12 +374,11 @@ DuolingoStatusSettingsWidget.prototype = {
    		this._grid.attach(activate_alarm_switch, 1, row_index, 1, 1);
 
 		var adjustment_hours = new Gtk.Adjustment({
-			value: this.get_hour_of_notification_time(),
 			upper: 23,
 			lower: 0,
 			step_increment: 1
 		});
-
+		adjustment_hours.set_value(this.get_hour_of_notification_time());
 		this.notification_time_hour_field = new Gtk.SpinButton({
 			max_length: 2,
 			numeric: true,
@@ -392,17 +391,16 @@ DuolingoStatusSettingsWidget.prototype = {
 		}));
 
 		var adjustment_mintues = new Gtk.Adjustment({
-			value: this.get_minute_of_notification_time(),
 			upper: 59,
 			lower: 0,
 			step_increment: 1
 		});
+		adjustment_mintues.set_value(this.get_minute_of_notification_time());
 		this.notification_time_minute_field = new Gtk.SpinButton({
 			max_length: 2,
 			numeric: true,
 			sensitive: activate_alarm_switch.active
 		});
-		this.notification_time_minute_field.set_value(this.get_minute_of_notification_time());
 		this.notification_time_minute_field.adjustment = adjustment_mintues;
 		this.notification_time_minute_field.connect('value_changed', Lang.bind(this, function() {
 			Settings.set_string(Constants.SETTING_NOTIFICATION_TIME, this.get_notification_time());
