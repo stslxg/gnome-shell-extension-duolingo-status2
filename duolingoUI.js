@@ -124,9 +124,9 @@ var DuolingoMenuButton = GObject.registerClass(class DuolingoMenuButton extends 
 		/* Duolingo menu */
 		var link_menu = new PopupMenu.PopupBaseMenuItem();
 		link_menu.width = menu_width;
-		var link_label = new St.Label({ text: 'Duolingo.com', x_align: Clutter.ActorAlign.CENTER });
+		var link_label = new St.Label({ text: 'Duolingo.com', x_expand: true, x_align: Clutter.ActorAlign.CENTER });
         link_label.add_style_class_name(Constants.STYLE_DUOLINGO_LINK);
-		link_menu.add(link_label, { expand: true });
+		link_menu.add(link_label);
 		link_menu.connect('activate', function() {
 			Util.spawn([Settings.get_string(Constants.SETTING_OPENING_BROWSER_COMMAND), Constants.URL_DUOLINGO_HOME]);
 		});
@@ -137,12 +137,12 @@ var DuolingoMenuButton = GObject.registerClass(class DuolingoMenuButton extends 
 			style_class: 'system-actions-icon',
 			icon_size: icon_size
 		});
-		var refresh_button = new St.Button({child: refresh_icon});
+		var refresh_button = new St.Button({child: refresh_icon, x_expand: false});
 		refresh_button.connect('clicked', Lang.bind(this, function() {
 			this.menu.close(); // this closing action is necessary, otherwise GJS fails.
 			this.custom_signals.emit(Constants.EVENT_REFRESH);
 		}));
-		link_menu.add(refresh_button, {expand: false});
+		link_menu.add(refresh_button);
 
 		/* Preferences button */
 		var preferences_icon = new St.Icon({
@@ -150,11 +150,11 @@ var DuolingoMenuButton = GObject.registerClass(class DuolingoMenuButton extends 
 			style_class: 'system-actions-icon',
 			icon_size: icon_size
 		});
-		var preferences_button = new St.Button({child: preferences_icon});
+		var preferences_button = new St.Button({child: preferences_icon, x_expand: false});
 		preferences_button.connect('clicked', Lang.bind(this, function() {
             this.custom_signals.emit(Constants.EVENT_PREFERENCES);
 		}));
-		link_menu.add(preferences_button, {expand: false});
+		link_menu.add(preferences_button);
 
 		this.menu.addMenuItem(link_menu);
 	}
