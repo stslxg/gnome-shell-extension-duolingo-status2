@@ -35,11 +35,11 @@ var DuolingoMenuButton = GObject.registerClass(class DuolingoMenuButton extends 
 	    Gettext.bindtextdomain(Me.uuid, Me.dir.get_child('locale').get_path());
 
 		this.custom_signals = new CustomSignals();
-        this.actor.add_style_class_name('panel-status-button');
+        this.add_style_class_name('panel-status-button');
 		var spinnerIcon = Gio.File.new_for_uri('resource:///org/gnome/shell/theme/process-working.svg');
 		this.spinner = new Animation.AnimatedIcon(spinnerIcon, 16);
-		this.spinner.actor.show();
-		this.actor.add_child(this.spinner.actor);
+		this.spinner.show();
+		this.add_child(this.spinner);
 		this._set_spinner(true);
 
         this.reminder = null;
@@ -76,7 +76,7 @@ var DuolingoMenuButton = GObject.registerClass(class DuolingoMenuButton extends 
 			});
     		this.profile_menu = new PopupMenu.PopupBaseMenuItem();
 
-    		this.profile_menu.actor.add(this.todays_improvement);
+    		this.profile_menu.add(this.todays_improvement);
 
     		var streak_label = new St.Label({
                 x_align: Clutter.ActorAlign.CENTER,
@@ -92,7 +92,7 @@ var DuolingoMenuButton = GObject.registerClass(class DuolingoMenuButton extends 
     		} else {
     			streak_label.text = '';
     		}
-    		this.profile_menu.actor.add(streak_label, {expand: true});
+    		this.profile_menu.add(streak_label, {expand: true});
 
     		this.menu.addMenuItem(this.profile_menu);
     		this._set_todays_improvement();
@@ -110,23 +110,23 @@ var DuolingoMenuButton = GObject.registerClass(class DuolingoMenuButton extends 
 	_init_icon(path) {
 		// remove spinner
 		this._set_spinner(false);
-		this.actor.remove_child(this.spinner.actor);
+		this.remove_child(this.spinner);
 
 		this.hbox = new St.BoxLayout({ style_class: 'panel-status-menu-box' });
 		var gicon = Gio.icon_new_for_string(path);
 		var icon = new St.Icon({gicon: gicon, icon_size: icon_size});
         this.hbox.add_child(icon);
-        this.actor.add_style_class_name('panel-status-button');
-		this.actor.add_child(this.hbox);
+        this.add_style_class_name('panel-status-button');
+		this.add_child(this.hbox);
 	}
 
 	_init_duolingo_menu() {
 		/* Duolingo menu */
 		var link_menu = new PopupMenu.PopupBaseMenuItem();
-		link_menu.actor.width = menu_width;
+		link_menu.width = menu_width;
 		var link_label = new St.Label({ text: 'Duolingo.com', x_align: Clutter.ActorAlign.CENTER });
         link_label.add_style_class_name(Constants.STYLE_DUOLINGO_LINK);
-		link_menu.actor.add(link_label, { expand: true });
+		link_menu.add(link_label, { expand: true });
 		link_menu.connect('activate', function() {
 			Util.spawn([Settings.get_string(Constants.SETTING_OPENING_BROWSER_COMMAND), Constants.URL_DUOLINGO_HOME]);
 		});
@@ -142,7 +142,7 @@ var DuolingoMenuButton = GObject.registerClass(class DuolingoMenuButton extends 
 			this.menu.close(); // this closing action is necessary, otherwise GJS fails.
 			this.custom_signals.emit(Constants.EVENT_REFRESH);
 		}));
-		link_menu.actor.add(refresh_button, {expand: false});
+		link_menu.add(refresh_button, {expand: false});
 
 		/* Preferences button */
 		var preferences_icon = new St.Icon({
@@ -154,7 +154,7 @@ var DuolingoMenuButton = GObject.registerClass(class DuolingoMenuButton extends 
 		preferences_button.connect('clicked', Lang.bind(this, function() {
             this.custom_signals.emit(Constants.EVENT_PREFERENCES);
 		}));
-		link_menu.actor.add(preferences_button, {expand: false});
+		link_menu.add(preferences_button, {expand: false});
 
 		this.menu.addMenuItem(link_menu);
 	}
@@ -197,8 +197,8 @@ var DuolingoMenuButton = GObject.registerClass(class DuolingoMenuButton extends 
                 text: Utils.formatThousandNumber(lingots.toString())});
             lingots_label.add_style_class_name(Constants.STYLE_LINGOTS_LABEL);
         	this.profile_menu.connect('activate', this._open_lingots_link);
-            this.profile_menu.actor.add(lingots_icon);
-        	this.profile_menu.actor.add(lingots_label);
+            this.profile_menu.add(lingots_icon);
+        	this.profile_menu.add(lingots_label);
         }
 	}
 
@@ -215,8 +215,8 @@ var DuolingoMenuButton = GObject.registerClass(class DuolingoMenuButton extends 
                 text: double_or_nothing + Constants.LABEL_XP_SEPARATOR + '7'});
             double_or_nothing_label.add_style_class_name(Constants.STYLE_DOUBLE_OR_NOTHING_LABEL);
         	this.profile_menu.connect('activate', this._open_lingots_link);
-    		this.profile_menu.actor.add(fire_icon);
-    		this.profile_menu.actor.add(double_or_nothing_label);
+    		this.profile_menu.add(fire_icon);
+    		this.profile_menu.add(double_or_nothing_label);
         }
 	}
 
