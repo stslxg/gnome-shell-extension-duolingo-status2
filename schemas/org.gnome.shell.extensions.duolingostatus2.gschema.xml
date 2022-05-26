@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="gnome-shell-extensions">
 
-  <schema path="/org/gnome/shell/extensions/duolingostatus/" id="org.gnome.shell.extensions.duolingostatus">
+  <schema path="/org/gnome/shell/extensions/duolingostatus2/" id="org.gnome.shell.extensions.duolingostatus2">
 
 	<key type="s" name="username">
         <default>''</default>

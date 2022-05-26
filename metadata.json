@@ -1,11 +1,11 @@
 {
-  "description": "Easy way to remember to do your Duolingo, by displaying a red owl icon in your top bar. The red color or the icon itself goes off once your daily goal is reached.\nUseful information about your Duolingo account, and a shortcut to the website are also at your disposition.", 
-  "name": "Duolingo Status2", 
-  "settings-schema": "org.gnome.shell.extensions.duolingostatus2", 
+  "name": "Duolingo Status 2",
+  "description": "Another duolingo-status that works in Gnome 42, based on the discontinued duolingo-status by bo32.",
+  "uuid": "duolingo-status2@stslxg.gmail.com",
   "shell-version": [
     "42"
-  ], 
-  "url": "https://github.com/stslxg/gnome-shell-extension-duolingo-status2", 
-  "uuid": "duolingostatus2@stslxg.gmail.com", 
-  "version": 24
+  ],
+  "settings-schema": "org.gnome.shell.extensions.duolingostatus2",
+  "url": "https://github.com/stslxg/gnome-shell-extension-duolingo-status2",
+  "version": 1
 }
