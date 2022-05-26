@@ -28,7 +28,7 @@ var ICON_LINGOTS = Me.path + '/icons/ruby.png';
 
 var LABEL_DUOLINGO = 'duolingo';
 var LABEL_DUOLINGO_WITH_WWW_PREFIX = 'www.duolingo';
-var LABEL_NOTIFICATION_TITLE = 'Duolingo Status extension';
+var LABEL_NOTIFICATION_TITLE = 'Duolingo Status 2 extension';
 var LABEL_XP_SEPARATOR = ' / ';
 
 var LANGUAGE_LABEL = 'label';
