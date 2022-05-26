@@ -9,7 +9,7 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Gio = imports.gi.Gio;
 const Clutter = imports.gi.Clutter;
 const Animation = imports.ui.animation;
-const Tweener = imports.ui.tweener;
+//const Tweener = imports.ui.tweener;
 const Me = ExtensionUtils.getCurrentExtension();
 const Convenience = Me.imports.convenience;
 const CustomSignals = Me.imports.custom_signals.CustomSignals;
@@ -248,16 +248,16 @@ var DuolingoMenuButton = GObject.registerClass(class DuolingoMenuButton extends 
 	}
 	
 	_set_spinner(enable) {
-		Tweener.removeTweens(this.spinner.actor);
+		//Tweener.removeTweens(this.spinner.actor);
 
 		if(enable) {
 			this.spinner.play();
-			Tweener.addTween(this.spinner.actor, {
+			/* Tweener.addTween(this.spinner.actor, {
 				opacity: 255,
 				transition: 'linear'
-			});
+			}); */
 		} else {
-			Tweener.addTween(this.spinner.actor, { 
+			/* Tweener.addTween(this.spinner.actor, { 
 				opacity: 0,
                 transition: 'linear',
                 onCompleteScope: this,
@@ -265,7 +265,7 @@ var DuolingoMenuButton = GObject.registerClass(class DuolingoMenuButton extends 
 					if (this.spinner)
 						this.spinner.stop();
 				}
-			});
+			}); */
 		}
 	}
 
