@@ -11,11 +11,11 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Constants = Me.imports.constants;
 const CustomSignals = Me.imports.custom_signals.CustomSignals;
-const Convenience = Me.imports.convenience;
 const FLAGS = Me.imports.flagsKeys.flags;
 const Utils = Me.imports.utils;
 
-const Settings = Convenience.getSettings();
+const schema = Me.metadata['settings-schema'];
+const Settings = ExtensionUtils.getSettings(schema);
 
 var LanguageSubMenu = class LanguageMenu extends PopupMenu.PopupSubMenuMenuItem {
 
