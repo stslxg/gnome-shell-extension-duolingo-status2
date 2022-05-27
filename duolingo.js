@@ -31,8 +31,8 @@ var Duolingo = class Duolingo {
 	If the user is not found, displays a notification, and the menu is not built.
 	If an error different than 200 is returned, displays a notification, and the menu is not built. */
 	get_raw_data(callback) {
-		if (!this.login) {
-			callback(_("Please enter a username in the settings."));
+		if (!this.login || !this.password) {
+			callback(_("Please enter a username and a password in the settings."));
 			return null;
 		}
 
@@ -40,14 +40,36 @@ var Duolingo = class Duolingo {
 			return this.raw_data;
 		}
 
-		if (!this.password) {
+		var session = new Soup.SessionAsync();
+		session.user_agent = Me.metadata.uuid;
+
+		var url = Constants.URL_DUOLINGO_LOGIN;
+		if (Settings.get_boolean(Constants.SETTING_SHOW_ICON_IN_NOTIFICATION_TRAY)) {
+			url = url.replace(Constants.LABEL_DUOLINGO, Constants.LABEL_DUOLINGO_WITH_WWW_PREFIX);
+		}
+		var params = {'login': this.login, 'password': this.password};
+		var message = Soup.form_request_new_from_hash('POST', url, params);
+		message.request_headers.append('Connection', 'keep-alive');
+		session.queue_message(message, Lang.bind(this, function(session, response) {
+			var data = JSON.parse(response.response_body.data);
+			if (!data) {
+				callback(_("Cannot connect to Duolingo servers - check your connection."));
+				return;
+			}
+			if (data['failure'] != null) {
+				global.log(data['message'] + '. Error: ' + data['failure']);
+				callback(_("Authentication failed."));
+				return;
+			}
+
+			var cookies = Soup.cookies_from_response(response);
 			var url = Constants.URL_DUOLINGO_USERS + this.login;
 			if (Settings.get_boolean(Constants.SETTING_SHOW_ICON_IN_NOTIFICATION_TRAY)) {
 				url = url.replace(Constants.LABEL_DUOLINGO, Constants.LABEL_DUOLINGO_WITH_WWW_PREFIX);
 			}
-			var request = Soup.Message.new('GET', url);
-			var session = new Soup.SessionAsync();
-			session.queue_message(request, Lang.bind(this, function(session, response) {
+			var msg = Soup.Message.new('GET', url);
+			Soup.cookies_to_request(cookies, msg);
+			session.queue_message(msg, Lang.bind(this, function(session, response) {
 				if (response.status_code == 200) {
 					try {
 						this.raw_data = JSON.parse(response.response_body.data);
@@ -67,59 +89,7 @@ var Duolingo = class Duolingo {
 					}
 				}
 			}));
-			
-		} else {
-			var session = new Soup.SessionAsync();
-			session.user_agent = Me.metadata.uuid;
-
-			var url = Constants.URL_DUOLINGO_LOGIN;
-			if (Settings.get_boolean(Constants.SETTING_SHOW_ICON_IN_NOTIFICATION_TRAY)) {
-				url = url.replace(Constants.LABEL_DUOLINGO, Constants.LABEL_DUOLINGO_WITH_WWW_PREFIX);
-			}
-			var params = {'login': this.login, 'password': this.password};
-			var message = Soup.form_request_new_from_hash('POST', url, params);
-			message.request_headers.append('Connection', 'keep-alive');
-			session.queue_message(message, Lang.bind(this, function(session, response) {
-				var data = JSON.parse(response.response_body.data);
-				if (!data) {
-					callback(_("Cannot connect to Duolingo servers - check your connection."));
-					return;
-				}
-				if (data['failure'] != null) {
-					global.log(data['message'] + '. Error: ' + data['failure']);
-					callback(_("Authentication failed."));
-					return;
-				}
-
-				var cookies = Soup.cookies_from_response(response);
-				var url = Constants.URL_DUOLINGO_USERS + this.login;
-				if (Settings.get_boolean(Constants.SETTING_SHOW_ICON_IN_NOTIFICATION_TRAY)) {
-					url = url.replace(Constants.LABEL_DUOLINGO, Constants.LABEL_DUOLINGO_WITH_WWW_PREFIX);
-				}
-				var msg = Soup.Message.new('GET', url);
-				Soup.cookies_to_request(cookies, msg);
-				session.queue_message(msg, Lang.bind(this, function(session, response) {
-					if (response.status_code == 200) {
-						try {
-							this.raw_data = JSON.parse(response.response_body.data);
-							callback();
-						} catch (err) {
-							global.log(err);
-							callback(_("The user couldn't be found."));
-						}
-					} else {
-						this.timeouts--;
-						if (this.timeouts == 0) {
-							callback(_("The server couldn't be reached."));
-						} else {
-							Mainloop.timeout_add(TIME_OUT_DURATION, Lang.bind(this, function() {
-								this.get_raw_data(callback);
-							}));
-						}
-					}
-				}));
-			}));
-		}
+		}));
 
 		return this.raw_data;
 	}
