@@ -11,7 +11,6 @@ const Clutter = imports.gi.Clutter;
 const Animation = imports.ui.animation;
 //const Tweener = imports.ui.tweener;
 const Me = ExtensionUtils.getCurrentExtension();
-const Convenience = Me.imports.convenience;
 const CustomSignals = Me.imports.custom_signals.CustomSignals;
 const Duolingo = Me.imports.duolingo.Duolingo;
 const Reminder = Me.imports.reminder.Reminder;
@@ -20,7 +19,8 @@ const Constants = Me.imports.constants;
 const LanguageSubMenu = Me.imports.duolingoLanguageMenu.LanguageSubMenu;
 
 const Util = imports.misc.util;
-const Settings = Convenience.getSettings();
+const schema = Me.metadata['settings-schema'];
+const Settings = ExtensionUtils.getSettings(schema);
 const GObject = imports.gi.GObject;
 const Gettext = imports.gettext;
 const _ = Gettext.domain(Me.uuid).gettext;

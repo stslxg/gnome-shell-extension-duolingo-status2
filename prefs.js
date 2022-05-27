@@ -1,5 +1,6 @@
 const Gtk = imports.gi.Gtk;
 const Gdk = imports.gi.Gdk;
+const Gio = imports.gi.Gio;
 const Lang = imports.lang;
 
 const ExtensionUtils = imports.misc.extensionUtils;
@@ -57,9 +58,11 @@ DuolingoStatusSettingsWidget.prototype = {
 		});
 		this.username_field = new Gtk.Entry({
 			hexpand: true,
-			halign: Gtk.Align.FILL
+			halign: Gtk.Align.FILL,
+			text: Settings.get_string(Constants.SETTING_USERNAME)
 		});
-		this.username_field.text = Settings.get_string(Constants.SETTING_USERNAME);
+		Settings.bind(Constants.SETTING_USERNAME, this.username_field, "text", Gio.SettingsBindFlags.DEFAULT);
+
 		this._grid.attach(username_label, 0, row_index, 1, 1);
 		this._grid.attach(this.username_field, 1, row_index, 3, 1);
 		row_index++;
@@ -462,13 +465,6 @@ DuolingoStatusSettingsWidget.prototype = {
         scrollingWindow.show();
 		scrollingWindow.unparent();
 		scrollingWindow.connect('destroy', Lang.bind(this, function() {
-			if (this.username_field.text != Settings.get_string(Constants.SETTING_USERNAME)) {
-				Settings.set_string(Constants.SETTING_USERNAME, this.username_field.text);
-			}
-
-			if (this.use_password_switch.active != Settings.get_boolean(Constants.SETTING_USE_AUTHENTICATION)) {
-				Settings.set_boolean(Constants.SETTING_USE_AUTHENTICATION, this.use_password_switch.active);
-			}
 			if (this.use_password_switch.active) {
 				if (this.password_field.text != Settings.get_string(Constants.SETTING_PASSWORD)) {
 					Settings.set_string(Constants.SETTING_PASSWORD, this.password_field.text);

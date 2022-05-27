@@ -1,8 +1,9 @@
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
-const Convenience = Me.imports.convenience;
+const schema = Me.metadata['settings-schema'];
+const Settings = ExtensionUtils.getSettings(schema);
 const Constants = Me.imports.constants;
-const Settings = Convenience.getSettings();
+
 
 const TimeZone = imports.gi.GLib.TimeZone;
 const DateTime = imports.gi.GLib.DateTime;
