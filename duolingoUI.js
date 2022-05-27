@@ -80,7 +80,9 @@ var DuolingoMenuButton = GObject.registerClass(class DuolingoMenuButton extends 
 
     		var streak_label = new St.Label({
                 x_align: Clutter.ActorAlign.CENTER,
-                y_align: Clutter.ActorAlign.CENTER });
+                y_align: Clutter.ActorAlign.CENTER,
+				x_expand: true
+			});
     		if (this.duolingo.get_streak() != 0) {
     			streak_label.text =  this.duolingo.get_streak().toString();
                 if (this.duolingo.is_frozen()) {
@@ -92,7 +94,7 @@ var DuolingoMenuButton = GObject.registerClass(class DuolingoMenuButton extends 
     		} else {
     			streak_label.text = '';
     		}
-    		this.profile_menu.add(streak_label, {expand: true});
+    		this.profile_menu.add(streak_label);
 
     		this.menu.addMenuItem(this.profile_menu);
     		this._set_todays_improvement();

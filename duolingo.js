@@ -24,7 +24,6 @@ var Duolingo = class Duolingo {
 		this.password = password;
 		this.raw_data = null;
 		this.timeouts = TIME_OUT_ATTEMPTS;
-		log("p" + password);
 	}
 
 	/* Calls the server and saves the answer in the property raw_data.
@@ -73,11 +72,11 @@ var Duolingo = class Duolingo {
 				if (response.status_code == 200) {
 					try {
 						this.raw_data = JSON.parse(response.response_body.data);
-						callback();
 					} catch (err) {
 						global.log(err);
 						callback(_("The user couldn't be found."));
 					}
+					callback();
 				} else {
 					this.timeouts--;
 					if (this.timeouts == 0) {
