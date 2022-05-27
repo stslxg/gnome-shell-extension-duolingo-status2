@@ -56,15 +56,15 @@ DuolingoStatusSettingsWidget.prototype = {
 			label: _('Username'),
 			halign: Gtk.Align.START
 		});
-		this.username_field = new Gtk.Entry({
+		var username_field = new Gtk.Entry({
 			hexpand: true,
 			halign: Gtk.Align.FILL,
 			text: Settings.get_string(Constants.SETTING_USERNAME)
 		});
-		Settings.bind(Constants.SETTING_USERNAME, this.username_field, "text", Gio.SettingsBindFlags.DEFAULT);
+		Settings.bind(Constants.SETTING_USERNAME, username_field, "text", Gio.SettingsBindFlags.DEFAULT);
 
 		this._grid.attach(username_label, 0, row_index, 1, 1);
-		this._grid.attach(this.username_field, 1, row_index, 3, 1);
+		this._grid.attach(username_field, 1, row_index, 3, 1);
 		row_index++;
 
 		/* Use authentication */
