@@ -2,6 +2,7 @@ const Lang = imports.lang;
 
 const Clutter = imports.gi.Clutter;
 const Gio = imports.gi.Gio;
+const GObject = imports.gi.GObject;
 const St = imports.gi.St;
 
 const Main = imports.ui.main;
@@ -17,10 +18,10 @@ const Utils = Me.imports.utils;
 const schema = Me.metadata['settings-schema'];
 const Settings = ExtensionUtils.getSettings(schema);
 
-var LanguageSubMenu = class LanguageMenu extends PopupMenu.PopupSubMenuMenuItem {
+var LanguageSubMenu = GObject.registerClass(class LanguageMenu extends PopupMenu.PopupSubMenuMenuItem {
 
-	constructor(language, duolingo) {
-		super(language[Constants.LANGUAGE_LABEL], true);
+	_init(language, duolingo) {
+		super._init(language[Constants.LANGUAGE_LABEL], true);
 		this.language_code = language[Constants.LANGUAGE_CODE];
 		
 		this.custom_signals = new CustomSignals();
@@ -58,24 +59,22 @@ var LanguageSubMenu = class LanguageMenu extends PopupMenu.PopupSubMenuMenuItem 
     		this.menu.addMenuItem(completion);
         }
 
-		if (Settings.get_boolean(Constants.SETTING_USE_AUTHENTICATION)) {
-			if (!language[Constants.LANGUAGE_CURRENT_LANGUAGE]) {
-				var menu_switch_to = new PopupMenu.PopupBaseMenuItem();
-				menu_switch_to.add(new St.Label({
-					text: _('Switch to'),
-					x_expand: true,
-					x_align: Clutter.ActorAlign.CENTER}));
+		if (!language[Constants.LANGUAGE_CURRENT_LANGUAGE]) {
+			var menu_switch_to = new PopupMenu.PopupBaseMenuItem();
+			menu_switch_to.add(new St.Label({
+				text: _('Switch to'),
+				x_expand: true,
+				x_align: Clutter.ActorAlign.CENTER}));
 
-				this.menu.addMenuItem(menu_switch_to);
-				this.menu.connect('activate', Lang.bind(this, function() {
-					duolingo.post_switch_language(
-						this.language_code, 
-						Lang.bind(this, function() {
-							this.custom_signals.emit(Constants.EVENT_REFRESH);
-						}),
-						this.print_error);
-				}));
-			}
+			this.menu.addMenuItem(menu_switch_to);
+			this.menu.connect('activate', Lang.bind(this, function() {
+				duolingo.post_switch_language(
+					this.language_code, 
+					Lang.bind(this, function() {
+						this.custom_signals.emit(Constants.EVENT_REFRESH);
+					}),
+					this.print_error);
+			}));
 		}
 	}
 
@@ -83,4 +82,4 @@ var LanguageSubMenu = class LanguageMenu extends PopupMenu.PopupSubMenuMenuItem 
 		Main.notify(Constants.LABEL_NOTIFICATION_TITLE, error_message);
     }
 
-};
+});
