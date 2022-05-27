@@ -75,9 +75,8 @@ DuolingoStatusSettingsWidget.prototype = {
 		});
 		this._grid.attach(password_label, 0, row_index, 1, 1);
 
-		var password_field = new Gtk.Entry({
+		var password_field = new Gtk.PasswordEntry({
 			hexpand: true,
-			visibility: false,
 			halign: Gtk.Align.FILL,
 			text: Settings.get_string(Constants.SETTING_PASSWORD)
 		});
