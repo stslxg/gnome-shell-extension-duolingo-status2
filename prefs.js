@@ -47,7 +47,7 @@ DuolingoStatusSettingsWidget.prototype = {
 		var row_index = 0;
 
 		this._grid = new Gtk.Grid({ orientation: Gtk.Orientation.VERTICAL,
-            row_spacing: 4,
+            row_spacing: 3,
             column_spacing: 4
         });
 
@@ -67,44 +67,26 @@ DuolingoStatusSettingsWidget.prototype = {
 		this._grid.attach(username_field, 1, row_index, 3, 1);
 		row_index++;
 
-		/* Use authentication */
-		var use_password_label = new Gtk.Label({
-			label: _('Use authentication'),
-			hexpand: true,
-			halign: Gtk.Align.START
-		});
-		this._grid.attach(use_password_label, 0, row_index, 3, 1);
-
-		this.use_password_switch = new Gtk.Switch({
-			halign: Gtk.Align.END,
-			active: Settings.get_boolean(Constants.SETTING_USE_AUTHENTICATION)
-		});
-		this.use_password_switch.connect('notify::active', Lang.bind(this, function() {
-			Settings.set_boolean(Constants.SETTING_USE_AUTHENTICATION, this.use_password_switch.active);
-			this.password_field.set_sensitive(this.use_password_switch.active);
-			password_label.set_sensitive(this.use_password_switch.active);
-		}));
-		this._grid.attach(this.use_password_switch, 3, row_index, 1, 1);
-		row_index++;
-
 		/* Password field */
 		var password_label = new Gtk.Label({
 			label: _('Password'),
 			hexpand: true,
-			halign: Gtk.Align.START
+			halign: Gtk.Align.START,
 		});
 		this._grid.attach(password_label, 0, row_index, 1, 1);
 
-		this.password_field = new Gtk.Entry({
+		var password_field = new Gtk.Entry({
 			hexpand: true,
 			visibility: false,
-			halign: Gtk.Align.FILL
+			halign: Gtk.Align.FILL,
+			text: Settings.get_string(Constants.SETTING_PASSWORD)
 		});
-		this.password_field.set_sensitive(Settings.get_boolean(Constants.SETTING_USE_AUTHENTICATION));
-		this.password_field.text = Settings.get_string(Constants.SETTING_PASSWORD);
-		this._grid.attach(this.password_field, 1, row_index, 3, 1);
+		Settings.bind(Constants.SETTING_PASSWORD, password_field, "text", Gio.SettingsBindFlags.DEFAULT);
+		
+		this._grid.attach(password_field, 1, row_index, 3, 1);
 		row_index++;
 
+		/* Use www */
 		var www_label = new Gtk.Label({
 			label: _('Use \'www\' in the url'),
 			hexpand: true,
@@ -465,14 +447,6 @@ DuolingoStatusSettingsWidget.prototype = {
         scrollingWindow.show();
 		scrollingWindow.unparent();
 		scrollingWindow.connect('destroy', Lang.bind(this, function() {
-			if (this.use_password_switch.active) {
-				if (this.password_field.text != Settings.get_string(Constants.SETTING_PASSWORD)) {
-					Settings.set_string(Constants.SETTING_PASSWORD, this.password_field.text);
-				}
-			} else {
-				Settings.set_string(Constants.SETTING_PASSWORD, '');
-			}
-
 			if(!this._default_browser_switch.active && this._custom_browser_field.text != '') {
 				if (Settings.get_string(Constants.SETTING_OPENING_BROWSER_COMMAND) != this._custom_browser_field.text) {
 					Settings.set_string(Constants.SETTING_OPENING_BROWSER_COMMAND, this._custom_browser_field.text);

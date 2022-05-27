@@ -24,6 +24,7 @@ var Duolingo = class Duolingo {
 		this.password = password;
 		this.raw_data = null;
 		this.timeouts = TIME_OUT_ATTEMPTS;
+		log("p" + password);
 	}
 
 	/* Calls the server and saves the answer in the property raw_data.

@@ -14,7 +14,6 @@ var SETTING_PASSWORD = 'password';
 var SETTING_OPENING_BROWSER_COMMAND = 'opening-browser-command';
 var SETTING_SHOW_ICON_IN_NOTIFICATION_TRAY = 'show-icon-in-notification-tray';
 var SETTING_SHOW_LINGOTS = 'show-lingots';
-var SETTING_USE_AUTHENTICATION = 'use-authentication';
 var SETTING_USE_DEFAULT_BROWSER = 'use-default-browser';
 var SETTING_USERNAME = 'username';
 
