@@ -4,8 +4,8 @@ const Lang = imports.lang;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
-const Convenience = Me.imports.convenience;
-const Settings = Convenience.getSettings();
+const schema = Me.metadata['settings-schema'];
+const Settings = ExtensionUtils.getSettings(schema);
 const Constants = Me.imports.constants;
 
 const Gettext = imports.gettext;
@@ -26,14 +26,16 @@ DuolingoStatusSettingsWidget.prototype = {
 		var stack = new Gtk.Stack({
             transition_type: Gtk.StackTransitionType.SLIDE_LEFT_RIGHT,
             transition_duration: 500,
-            margin_left: 10,
-            margin_right: 10
+            margin_start: 10,
+            margin_end: 10,
+			hexpand: true,
+			vexpand: true
         });
         var stack_switcher = new Gtk.StackSwitcher({
-            margin_left: 5,
+            margin_start: 5,
             margin_top: 5,
             margin_bottom: 5,
-            margin_right: 5,
+            margin_end: 5,
             halign: Gtk.Align.CENTER,
             stack: stack
         });
@@ -75,7 +77,7 @@ DuolingoStatusSettingsWidget.prototype = {
 			active: Settings.get_boolean(Constants.SETTING_USE_AUTHENTICATION)
 		});
 		this.use_password_switch.connect('notify::active', Lang.bind(this, function() {
-			// Settings.set_boolean(Constants.SETTING_USE_AUTHENTICATION, use_password_switch.active);
+			Settings.set_boolean(Constants.SETTING_USE_AUTHENTICATION, this.use_password_switch.active);
 			this.password_field.set_sensitive(this.use_password_switch.active);
 			password_label.set_sensitive(this.use_password_switch.active);
 		}));
@@ -317,7 +319,7 @@ DuolingoStatusSettingsWidget.prototype = {
 			sensitive: !Settings.get_boolean(Constants.SETTING_USE_DEFAULT_BROWSER)
 		});
 		this.app_chooser_button.set_show_dialog_item(true);
-		this.app_chooser_button.set_active(Settings.get_int(Constants.SETTING_APP_CHOOSER_ACTIVE_INDEX));
+		// this.app_chooser_button.set_active(Settings.get_int(Constants.SETTING_APP_CHOOSER_ACTIVE_INDEX));
 		this._grid.attach(custom_browser_label, 0, row_index, 1, 1);
 		this._grid.attach(this._custom_browser_field, 1, row_index, 2, 1);
 		this._grid.attach(this.app_chooser_button, 3, row_index, 1, 1);
@@ -381,7 +383,7 @@ DuolingoStatusSettingsWidget.prototype = {
 		});
 
 		this.notification_time_hour_field = new Gtk.SpinButton({
-			max_length: 2,
+			width_chars: 2,
 			numeric: true,
 			sensitive: activate_alarm_switch.active
 		});
@@ -398,7 +400,7 @@ DuolingoStatusSettingsWidget.prototype = {
 			step_increment: 1
 		});
 		this.notification_time_minute_field = new Gtk.SpinButton({
-			max_length: 2,
+			width_chars: 2,
 			numeric: true,
 			sensitive: activate_alarm_switch.active
 		});
@@ -421,8 +423,8 @@ DuolingoStatusSettingsWidget.prototype = {
 
 		stack.add_titled(this._grid, "reminder", _("Reminder"));
 
-		this.vbox.pack_start(stack_switcher, false, true, 0);
-		this.vbox.pack_start(stack, true, true, 0);
+		this.vbox.append(stack_switcher);
+		this.vbox.append(stack);
 
 		return;
 	},
@@ -455,9 +457,9 @@ DuolingoStatusSettingsWidget.prototype = {
                                  'hscrollbar-policy': Gtk.PolicyType.AUTOMATIC,
                                  'vscrollbar-policy': Gtk.PolicyType.AUTOMATIC,
                                  'hexpand': true, 'vexpand': true});
-        scrollingWindow.add_with_viewport(this.vbox);
+        scrollingWindow.set_child(this.vbox);
         scrollingWindow.width_request = 400;
-        scrollingWindow.show_all();
+        scrollingWindow.show();
 		scrollingWindow.unparent();
 		scrollingWindow.connect('destroy', Lang.bind(this, function() {
 			if (this.username_field.text != Settings.get_string(Constants.SETTING_USERNAME)) {
