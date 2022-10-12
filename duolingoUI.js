@@ -250,16 +250,16 @@ var DuolingoMenuButton = GObject.registerClass(class DuolingoMenuButton extends 
 	}
 	
 	_set_spinner(enable) {
-		Tweener.removeTweens(this.spinner.actor);
+		Tweener.removeTweens(this.spinner);
 
 		if(enable) {
 			this.spinner.play();
-			Tweener.addTween(this.spinner.actor, {
+			Tweener.addTween(this.spinner, {
 				opacity: 255,
 				transition: 'linear'
 			});
 		} else {
-			Tweener.addTween(this.spinner.actor, { 
+			Tweener.addTween(this.spinner, {
 				opacity: 0,
                 transition: 'linear',
                 onCompleteScope: this,
