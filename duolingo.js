@@ -43,9 +43,7 @@ var Duolingo = class Duolingo {
 		session.user_agent = Me.metadata.uuid;
 
 		var url = Constants.URL_DUOLINGO_LOGIN;
-		if (Settings.get_boolean(Constants.SETTING_SHOW_ICON_IN_NOTIFICATION_TRAY)) {
-			url = url.replace(Constants.LABEL_DUOLINGO, Constants.LABEL_DUOLINGO_WITH_WWW_PREFIX);
-		}
+		url = url.replace(Constants.LABEL_DUOLINGO, Constants.LABEL_DUOLINGO_WITH_WWW_PREFIX);
 		var params = {'login': this.login, 'password': this.password};
 		var message = Soup.form_request_new_from_hash('POST', url, params);
 		message.request_headers.append('Connection', 'keep-alive');
@@ -213,9 +211,7 @@ var Duolingo = class Duolingo {
 		session.user_agent = Me.metadata.uuid;
 
 		var url = Constants.URL_DUOLINGO_LOGIN;
-		if (Settings.get_boolean(Constants.SETTING_SHOW_ICON_IN_NOTIFICATION_TRAY)) {
-			url = url.replace(Constants.LABEL_DUOLINGO, Constants.LABEL_DUOLINGO_WITH_WWW_PREFIX);
-		}
+		url = url.replace(Constants.LABEL_DUOLINGO, Constants.LABEL_DUOLINGO_WITH_WWW_PREFIX);
 		var params = {'login': this.login, 'password': this.password};
 		var message = Soup.form_request_new_from_hash('POST', url, params);
 		message.request_headers.append('Connection', 'keep-alive');
@@ -254,9 +250,7 @@ var Duolingo = class Duolingo {
 		session.user_agent = Me.metadata.uuid;
 
 		var url = Constants.URL_DUOLINGO_LOGIN;
-		if (Settings.get_boolean(Constants.SETTING_SHOW_ICON_IN_NOTIFICATION_TRAY)) {
-			url = url.replace(Constants.LABEL_DUOLINGO, Constants.LABEL_DUOLINGO_WITH_WWW_PREFIX);
-		}
+		url = url.replace(Constants.LABEL_DUOLINGO, Constants.LABEL_DUOLINGO_WITH_WWW_PREFIX);
 		var params = {'login': this.login, 'password': this.password};
 		var message = Soup.form_request_new_from_hash('POST', url, params);
 		message.request_headers.append('Connection', 'keep-alive');
