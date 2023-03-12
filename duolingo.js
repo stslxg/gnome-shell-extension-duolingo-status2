@@ -68,17 +68,26 @@ var Duolingo = class Duolingo {
 					callback(_("Cannot connect to Duolingo servers - check your connection."));
 					return;
 				}
-				let decoder = new TextDecoder('utf-8');
-				let body = decoder.decode(bytes.get_data());
-				var data = JSON.parse(body);
-				if (!data) {
-					callback(_("Cannot connect to Duolingo servers - check your connection."));
-					return;
-				}
-				if (data['failure'] != null) {
-					global.log(data['message'] + '. Error: ' + data['failure']);
-					callback(_("Authentication failed."));
-					return;
+				try {
+					let decoder = new TextDecoder('utf-8');
+					let body = decoder.decode(bytes.get_data());
+					var data = JSON.parse(body);
+					if (!data) {
+						callback(_("Cannot connect to Duolingo servers - check your connection."));
+						return;
+					}
+					if (data['failure'] != null) {
+						global.log(data['message'] + '. Error: ' + data['failure']);
+						callback(_("Authentication failed."));
+						return;
+					}
+				} catch (error) {
+					if (error instanceof SyntaxError) {
+						// Ignore SyntaxError, since duolingo returns a HTML page if authentication is successful
+					} else {
+						global.log(error);
+						return;
+					}
 				}
 
 				response = session.get_async_result_message(result);
@@ -120,15 +129,24 @@ var Duolingo = class Duolingo {
 			message = Soup.form_request_new_from_hash('POST', url, params);
 			message.request_headers.append('Connection', 'keep-alive');
 			session.queue_message(message, Lang.bind(this, function(session, response) {
-				var data = JSON.parse(response.response_body.data);
-				if (!data) {
-					callback(_("Cannot connect to Duolingo servers - check your connection."));
-					return;
-				}
-				if (data['failure'] != null) {
-					global.log(data['message'] + '. Error: ' + data['failure']);
-					callback(_("Authentication failed."));
-					return;
+				try {
+					var data = JSON.parse(response.response_body.data);
+					if (!data) {
+						callback(_("Cannot connect to Duolingo servers - check your connection."));
+						return;
+					}
+					if (data['failure'] != null) {
+						global.log(data['message'] + '. Error: ' + data['failure']);
+						callback(_("Authentication failed."));
+						return;
+					}
+				} catch (error) {
+					if (error instanceof SyntaxError) {
+						// Ignore SyntaxError, since duolingo returns a HTML page if authentication is successful
+					} else {
+						global.log(error);
+						return;
+					}
 				}
 
 				var cookies = Soup.cookies_from_response(response);
