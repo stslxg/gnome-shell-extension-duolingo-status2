@@ -83,7 +83,7 @@ var Duolingo = class Duolingo {
 					}
 				} catch (error) {
 					if (error instanceof SyntaxError) {
-						// Ignore SyntaxError, since duolingo returns a HTML page if authentication is successful
+						// Ignore SyntaxError, since duolingo returns an HTML page if authentication is successful
 					} else {
 						global.log(error);
 						return;
@@ -113,6 +113,8 @@ var Duolingo = class Duolingo {
 							callback(_("The user couldn't be found."));
 						}
 						callback();
+					} else if (response.get_status() == 401) {
+						callback(_("Authentication failed."));
 					} else {
 						this.timeouts--;
 						if (this.timeouts == 0) {
@@ -142,7 +144,7 @@ var Duolingo = class Duolingo {
 					}
 				} catch (error) {
 					if (error instanceof SyntaxError) {
-						// Ignore SyntaxError, since duolingo returns a HTML page if authentication is successful
+						// Ignore SyntaxError, since duolingo returns an HTML page if authentication is successful
 					} else {
 						global.log(error);
 						return;
@@ -165,6 +167,8 @@ var Duolingo = class Duolingo {
 							callback(_("The user couldn't be found."));
 						}
 						callback();
+					} if (response.get_status() == 401) {
+						callback(_("Authentication failed."));
 					} else {
 						this.timeouts--;
 						if (this.timeouts == 0) {
