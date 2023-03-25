@@ -7,7 +7,7 @@
         <default>''</default>
     </key>
 
-    <key type="s" name="password">
+    <key type="s" name="auth-token">
         <default>''</default>
     </key>
 
