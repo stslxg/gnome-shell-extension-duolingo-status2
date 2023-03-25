@@ -49,6 +49,7 @@ var STYLE_STREAK_NOT_FROZEN = 'streak-not-frozen';
 var URL_DUOLINGO_HOME = 'https://duolingo.com';
 var URL_DUOLINGO_LOGIN = 'https://duolingo.com/login';
 var URL_DUOLINGO_STORE = 'https://duolingo.com/show_store';
+var URL_DUOLINGO_BUY_ITEM = 'https://duolingo.com/store/purchase_item';
 var URL_DUOLINGO_SWITCH_LANGUAGE = 'https://duolingo.com/switch_language';
 var URL_DUOLINGO_USERS = 'https://duolingo.com/users/';
 
