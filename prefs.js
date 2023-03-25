@@ -67,22 +67,22 @@ DuolingoStatusSettingsWidget.prototype = {
 		this._grid.attach(username_field, 1, row_index, 3, 1);
 		row_index++;
 
-		/* Password field */
-		var password_label = new Gtk.Label({
-			label: _('Password'),
+		/* Authorization Token field */
+		var auth_token_label = new Gtk.Label({
+			label: _('Authorization token'),
 			hexpand: true,
 			halign: Gtk.Align.START,
 		});
-		this._grid.attach(password_label, 0, row_index, 1, 1);
+		this._grid.attach(auth_token_label, 0, row_index, 1, 1);
 
-		var password_field = new Gtk.PasswordEntry({
+		var auth_token_field = new Gtk.PasswordEntry({
 			hexpand: true,
 			halign: Gtk.Align.FILL,
-			text: Settings.get_string(Constants.SETTING_PASSWORD)
+			text: Settings.get_string(Constants.SETTING_AUTH_TOKEN)
 		});
-		Settings.bind(Constants.SETTING_PASSWORD, password_field, "text", Gio.SettingsBindFlags.DEFAULT);
+		Settings.bind(Constants.SETTING_AUTH_TOKEN, auth_token_field, "text", Gio.SettingsBindFlags.DEFAULT);
 		
-		this._grid.attach(password_field, 1, row_index, 3, 1);
+		this._grid.attach(auth_token_field, 1, row_index, 3, 1);
 		row_index++;
 
 		/* Use www */

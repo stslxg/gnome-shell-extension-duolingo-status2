@@ -45,7 +45,7 @@ var DuolingoMenuButton = GObject.registerClass(class DuolingoMenuButton extends 
         this.reminder = null;
 		this.duolingo = new Duolingo(
 			Settings.get_string(Constants.SETTING_USERNAME),
-			Settings.get_string(Constants.SETTING_PASSWORD));
+			Settings.get_string(Constants.SETTING_AUTH_TOKEN));
 		this.duolingo.get_raw_data(Lang.bind(this, this._create_menus));
 
         this._settings_changed = false;
