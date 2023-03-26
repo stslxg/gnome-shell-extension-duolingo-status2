@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-27 23:57-0400\n"
+"POT-Creation-Date: 2023-03-25 20:03-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,142 +17,143 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: extension.js:36
-msgid "The Duolingo extension just restarted."
-msgstr ""
-
 #: duolingo.js:35
-msgid "Please enter a username in the settings."
+msgid "Please enter a username and an authorization token in the settings."
 msgstr ""
 
-#: duolingo.js:57 duolingo.js:103
+#: duolingo.js:73 duolingo.js:103
 msgid "The user couldn't be found."
 msgstr ""
 
-#: duolingo.js:62 duolingo.js:108
-msgid "The server couldn't be reached."
-msgstr ""
-
-#: duolingo.js:85
+#: duolingo.js:77 duolingo.js:107
 msgid "Authentication failed."
 msgstr ""
 
-#: duolingoUI.js:187
-msgid "Duolingo extension restarted: language switched."
+#: duolingo.js:81 duolingo.js:111
+msgid "The server couldn't be reached."
 msgstr ""
 
-#: prefs.js:53
-msgid "Username"
-msgstr ""
-
-#: prefs.js:67
-msgid "Use authentication"
-msgstr ""
-
-#: prefs.js:87
-msgid "Password"
-msgstr ""
-
-#: prefs.js:104
-msgid "Use 'www' in the url"
-msgstr ""
-
-#: prefs.js:119
-msgid "Connection"
-msgstr ""
-
-#: prefs.js:134
-msgid "Force display of lingots when double or nothing is already displayed"
-msgstr ""
-
-#: prefs.js:149
-msgid "Content"
-msgstr ""
-
-#: prefs.js:163
-msgid "Corner icon position"
-msgstr ""
-
-#: prefs.js:171 prefs.js:194
-msgid "Left"
-msgstr ""
-
-#: prefs.js:172
-msgid "Center"
-msgstr ""
-
-#: prefs.js:173 prefs.js:196
-msgid "Right"
-msgstr ""
-
-#: prefs.js:186
-msgid "Index icon position"
-msgstr ""
-
-#: prefs.js:195
-msgid "Middle"
-msgstr ""
-
-#: prefs.js:209
-msgid "Hide icon when daily goal is reached"
-msgstr ""
-
-#: prefs.js:227
-msgid "Change icon color when daily goal is reached"
-msgstr ""
-
-#: prefs.js:259
-msgid "Change icon color when daily goal is not reached"
-msgstr ""
-
-#: prefs.js:278
-msgid "Icon"
-msgstr ""
-
-#: prefs.js:293
-msgid "Default browser"
-msgstr ""
-
-#: prefs.js:306
-msgid "Browser command"
-msgstr ""
-
-#: prefs.js:344
-msgid "Browser"
-msgstr ""
-
-#: prefs.js:361
-msgid "Enable notification"
-msgstr ""
-
-#: prefs.js:422
-msgid "Reminder"
-msgstr ""
-
-#: prefs.js:446
-msgid "Restart gnome-shell (Alt + F2, then enter 'r') to apply the reminder changes."
-msgstr ""
-
-#: reminder.js:37
-msgid "Time to do Duolingo !"
-msgstr ""
-
-#: duolingoLanguageMenu.js:34
+#: duolingoLanguageMenu.js:36
 msgid "lvl. "
 msgstr ""
 
-#: duolingoLanguageMenu.js:40
+#: duolingoLanguageMenu.js:42
 msgid "Total"
 msgstr ""
 
-#: duolingoLanguageMenu.js:45
+#: duolingoLanguageMenu.js:47
 msgid "Next level in"
 msgstr ""
 
-#: duolingoLanguageMenu.js:52
+#: duolingoLanguageMenu.js:54
 msgid "Completion"
 msgstr ""
 
-#: duolingoLanguageMenu.js:64
+#: duolingoLanguageMenu.js:65
 msgid "Switch to"
+msgstr ""
+
+#: duolingoUI.js:185
+msgid "Duolingo extension restarted: language switched."
+msgstr ""
+
+#: extension.js:42
+msgid "The Duolingo extension just restarted."
+msgstr ""
+
+#: prefs.js:56
+msgid "Username"
+msgstr ""
+
+#: prefs.js:72
+msgid "Authorization token"
+msgstr ""
+
+#: prefs.js:90
+msgid "Use 'www' in the url"
+msgstr ""
+
+#: prefs.js:105
+msgid "Connection"
+msgstr ""
+
+#: prefs.js:120
+msgid "Force display of lingots when double or nothing is already displayed"
+msgstr ""
+
+#: prefs.js:137
+msgid "Force display of gems when double or nothing is already displayed"
+msgstr ""
+
+#: prefs.js:151
+msgid "Content"
+msgstr ""
+
+#: prefs.js:165
+msgid "Corner icon position"
+msgstr ""
+
+#: prefs.js:173 prefs.js:196
+msgid "Left"
+msgstr ""
+
+#: prefs.js:174
+msgid "Center"
+msgstr ""
+
+#: prefs.js:175 prefs.js:198
+msgid "Right"
+msgstr ""
+
+#: prefs.js:188
+msgid "Index icon position"
+msgstr ""
+
+#: prefs.js:197
+msgid "Middle"
+msgstr ""
+
+#: prefs.js:211
+msgid "Hide icon when daily goal is reached"
+msgstr ""
+
+#: prefs.js:229
+msgid "Change icon color when daily goal is reached"
+msgstr ""
+
+#: prefs.js:261
+msgid "Change icon color when daily goal is not reached"
+msgstr ""
+
+#: prefs.js:280
+msgid "Icon"
+msgstr ""
+
+#: prefs.js:295
+msgid "Default browser"
+msgstr ""
+
+#: prefs.js:308
+msgid "Browser command"
+msgstr ""
+
+#: prefs.js:346
+msgid "Browser"
+msgstr ""
+
+#: prefs.js:363
+msgid "Enable notification"
+msgstr ""
+
+#: prefs.js:424
+msgid "Reminder"
+msgstr ""
+
+#: prefs.js:448
+msgid ""
+"Restart gnome-shell (Alt + F2, then enter 'r') to apply the reminder changes."
+msgstr ""
+
+#: reminder.js:39
+msgid "Time to do Duolingo !"
 msgstr ""
