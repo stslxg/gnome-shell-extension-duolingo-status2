@@ -2,7 +2,7 @@
 
 This is a fork from [the discontinued duolingo-status gnome shell extension](https://github.com/bo32/gnome-shell-extension-duolingo-status).
 
-The goal of this project is to port this extension to Gnome shell version 42.
+The goal of this project is to port this extension to Gnome shell version 42+.
 
 Following is the original ReadMe.
 ---
