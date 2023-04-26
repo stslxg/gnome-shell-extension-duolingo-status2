@@ -4,7 +4,8 @@
   "uuid": "duolingo-status2@stslxg.gmail.com",
   "shell-version": [
     "42",
-    "43"
+    "43",
+    "44"
   ],
   "settings-schema": "org.gnome.shell.extensions.duolingostatus2",
   "url": "https://github.com/stslxg/gnome-shell-extension-duolingo-status2",
